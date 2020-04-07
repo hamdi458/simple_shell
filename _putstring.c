@@ -6,5 +6,5 @@
 void _putstring(char *ch)
 {
 	while (*ch)
-		_putchar(*str++);
+		_putchar(*ch++);
 }

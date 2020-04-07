@@ -20,7 +20,7 @@ int main()
 	char* line;
 	pid_t pid;
 	size_t bufsize = 32;
-	char* t[];
+	char* t[10];
 	int r_exec;
 	_putstring("#cisfun$ ");
 	line = (char *)malloc(bufsize * sizeof(char));
@@ -38,7 +38,7 @@ int main()
 			r_exec = execve(t[0], t, NULL);
 			if (r_exec == -1)
 			{
-				r_exec = execve(rec_env(t[0], t, NULL);
+				r_exec = execve(rec_env(t[0]), t, NULL);
 						if (r_exec == -1)
 						{
 							perror("Error");

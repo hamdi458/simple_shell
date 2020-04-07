@@ -8,26 +8,25 @@
 char *rec_env(char *line)
 {
 	struct stat buf;
-	char* stat;
-	char *s;
 	int i = 0;
-	char* args[];
+	char* s;
+	char* args[10];
 	s = getenv("PATH");
-	args[i] = strtok(line,":");
+	args[i] = strtok(s,":");
 	if(args[i] == NULL)
                 return(NULL);
         while (args[i] != NULL)
         {
                 i++;
-                args[i] = strtok(line,":");
+                args[i] = strtok(s,":");
         }
 	i = 0;
 	while(args[i])
 	{
-		_strcat(t[i], "/");
-		_strcat(t[i], line);
-		if (stat(t[i], &buf) == 0)
-			return t[i];
+		_strcat(args[i], "/");
+		_strcat(args[i], line);
+		if (stat(args[i], &buf) == 0)
+			return args[i];
 		i++;
 	}
 	return (NULL);
