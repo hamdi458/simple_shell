@@ -1,25 +1,32 @@
 #include "shell.h"
-#define DEL " \t\r\a\n"
+#define DEL " "
+void remove_endof_line(char line[])
+{
+        int i = 0;
+        while (line[i] != '\n')
+                i++;
+        line[i] = '\0';
+}
 int process_line(char *args[], char line[])
 {
         int i = 0;
-        args[i] = strtok(line, DEL);
-        if(args[i] == NULL)
-                return(1);
-        while (args[i] != NULL)
+        char *token;
+	remove_endof_line(line);
+        token = strtok(line," ");
+        while (token != NULL)
         {
+                args[i] = token;
                 i++;
-                args[i] = strtok(line, DEL);
+		token = strtok(NULL," ");
         }
-        args--;
-        return (1);
+        return (0);
 }
 
 int main()
 {
 	char* line;
 	pid_t pid;
-	size_t bufsize = 32;
+	size_t bufsize = 64;
 	char* t[10];
 	int r_exec;
 	_putstring("#cisfun$ ");
@@ -41,13 +48,15 @@ int main()
 				r_exec = execve(rec_env(t[0]), t, NULL);
 						if (r_exec == -1)
 						{
-							perror("Error");
+							printf("Error");
 							exit(0);
 						}
 			}
 		}
-			else
-				wait(NULL);
+		else
+			wait(NULL);
+		_putstring("#cisfun$ ");
+
 	}
 	return(0);
 }

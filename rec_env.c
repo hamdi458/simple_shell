@@ -1,5 +1,5 @@
 #include"shell.h"
-
+#include <string.h>
 /**
  * rec_env - recover Path
  * @line: line enter
@@ -8,25 +8,33 @@
 char *rec_env(char *line)
 {
 	struct stat buf;
+	char *str;
+	char *s;
+	char *token;
 	int i = 0;
-	char* s;
-	char* args[10];
+	char* args[100];
+	char* tab[100];
+
 	s = getenv("PATH");
-	args[i] = strtok(s,":");
-	if(args[i] == NULL)
-                return(NULL);
-        while (args[i] != NULL)
-        {
-                i++;
-                args[i] = strtok(s,":");
-        }
-	i = 0;
-	while(args[i])
+        token = strtok(s,":");
+	while (token != NULL)
 	{
-		_strcat(args[i], "/");
-		_strcat(args[i], line);
-		if (stat(args[i], &buf) == 0)
-			return args[i];
+		args[i] = token;
+		i++;
+		token = strtok(NULL,":");
+	}
+        i = 0;
+	while (args[i])
+	{
+		str = (char*)malloc(100);
+		_strcat(str, args[i]);
+		_strcat(str, "/");
+		_strcat(str,line);
+		tab[i] = str;
+		if (stat(tab[i], &buf) == 0)
+		{
+			return (tab[i]);
+		}
 		i++;
 	}
 	return (NULL);
