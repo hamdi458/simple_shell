@@ -51,3 +51,18 @@ int main()
 	}
 	return(0);
 }
+
+
+
+
+
+/**
+ * signal_handler - handles ^C input
+ * @sig: signal value
+ * Return: void
+ */
+void signal_handler(int sig)
+{
+	(void) sig;
+	write("\n$ ");
+}
