@@ -8,6 +8,7 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 extern char **environ;
+void free_array(char **array);
 char *_strcat(char *dest, char *src);
 int _putchar(char c);
 void _putstring(char *c);

@@ -7,47 +7,70 @@ void remove_endof_line(char line[])
                 i++;
         line[i] = '\0';
 }
-int process_line(char *args[], char line[])
+char **process_line(char *line, char *del)
 {
         int i = 0;
         char *token;
-	remove_endof_line(line);
-        token = strtok(line," ");
+	char **commande;
+
+	commande = NULL;
+	token = NULL;
+	commande = malloc(1048);
+        token = strtok(line, del);
         while (token != NULL)
         {
-                args[i] = token;
-                i++;
-		token = strtok(NULL," ");
+		commande[i] = token;
+		token = strtok(NULL,del);
+		i++;
         }
-        return (1);
+
+        return (commande);
 }
 
 
-void print_prompt ()
+void fork_execve(char **line)
 {
-	if (isatty(STDIN_FILENO))
-		write(STDOUT_FILENO, "$ ", 2);
+	pid_t pid = 0;
+	int status = 0;
+
+	pid = fork();
+	if (pid == -1)
+		perror("fork");
+	else if (pid == 1)
+	{
+		waitpid(pid, &status, 0);
+		kill(pid, SIGTERM);
+	}
+	else if (pid == 0)
+	{
+		if (execve(rec_env(line[0]), line, NULL) == -1)
+			perror("shell");
+		exit(-1);
+	}
 }
 
 int main()
 {
-	char* line;
+	char* line = NULL;
 	size_t bufsize = 64;
-	char *t[100];
-
+	char **commande = NULL;
 	line = (char *)malloc(bufsize * sizeof(char));
 	if( line == NULL)
         {
 		perror("Unable to allocate buffer");
                 exit(1);
         }
-	while (1)
+	_putstring("$> ");
+	while (getline(&line, &bufsize, stdin))
 	{
-		print_prompt();
-		getline(&line, &bufsize, stdin);
-		process_line(t, line);
-		execvp(t[0], t);
-		free(line);
+		commande = process_line(line, DEL);
+		if (commande[0] == NULL)
+			perror("Error:");
+		else
+			fork_execve(commande);
+		_putstring("$> ");
 	}
+	free_array(commande);
+	free(line);
 	return(0);
 }
