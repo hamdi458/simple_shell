@@ -1,5 +1,5 @@
 #include "shell.h"
-#define DEL " "
+#define DEL " \t\r\n\a"
 void remove_endof_line(char line[])
 {
         int i = 0;
@@ -19,59 +19,35 @@ int process_line(char *args[], char line[])
                 i++;
 		token = strtok(NULL," ");
         }
-        return (0);
+        return (1);
+}
+
+
+void print_prompt ()
+{
+	if (isatty(STDIN_FILENO))
+		write(STDOUT_FILENO, "$ ", 2);
 }
 
 int main()
 {
 	char* line;
-	pid_t pid;
 	size_t bufsize = 64;
-	char* t[10];
-	int r_exec;
-	_putstring("#cisfun$ ");
+	char *t[100];
+
 	line = (char *)malloc(bufsize * sizeof(char));
 	if( line == NULL)
         {
 		perror("Unable to allocate buffer");
                 exit(1);
         }
-	while (getline(&line, &bufsize, stdin))
+	while (1)
 	{
+		print_prompt();
+		getline(&line, &bufsize, stdin);
 		process_line(t, line);
-		pid = fork();
-		if (pid == 0)
-		{
-			r_exec = execve(t[0], t, NULL);
-			if (r_exec == -1)
-			{
-				r_exec = execve(rec_env(t[0]), t, NULL);
-						if (r_exec == -1)
-						{
-							printf("Error");
-							exit(0);
-						}
-			}
-		}
-		else
-			wait(NULL);
-		_putstring("#cisfun$ ");
-
+		execvp(t[0], t);
+		free(line);
 	}
 	return(0);
-}
-
-
-
-
-
-/**
- * signal_handler - handles ^C input
- * @sig: signal value
- * Return: void
- */
-void signal_handler(int sig)
-{
-	(void) sig;
-	write("\n$ ");
 }
