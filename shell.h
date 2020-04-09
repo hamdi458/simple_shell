@@ -13,4 +13,5 @@ char *_strcat(char *dest, char *src);
 int _putchar(char c);
 void _putstring(char *c);
 char *rec_env(char *c);
+int _strlen(char *s)
 #endif
