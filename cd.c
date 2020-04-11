@@ -7,7 +7,7 @@
 int verif_built(char *cod)
 {
 	int i;
-	char *built_in[] = {"pwd", "cd", NULL};
+	char *built_in[] = {"exit","pwd", "cd", NULL};
 
 	for (i = 0; built_in[i]; i++)
 	{
@@ -25,7 +25,9 @@ int verif_built(char *cod)
 void exec_built(char **built)
 {
 	char cwd[PATH_MAX];
-
+	if(_strcmp(built[0], "exit") == 0)
+	   exit(0);
+	else
 	if (_strcmp(built[0], "pwd") == 0)
 	{
 		if (getcwd(cwd, sizeof(cwd)) != NULL)

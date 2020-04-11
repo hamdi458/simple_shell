@@ -71,7 +71,8 @@ char *rec_env(char *cod)
 		token = strtok(NULL, ":");
 	}
 	tab_path[i] = NULL;
-	for (i = 0; tab_path[i] != '\0'; i++)
+	i = 0;
+	while (tab_path[i])
 	{
 		result(stat_path, tab_path[i], cod);
 		if (stat(stat_path, &buf) == 0)
@@ -81,6 +82,7 @@ char *rec_env(char *cod)
 		}
 		else
 			stat_path[0] = '\0';
+		i++;
 	}
 	free(path);
 	free(stat_path);

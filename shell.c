@@ -3,17 +3,15 @@
 
 /**
  * print_prompt - print prompt .
- *@i : the number of #
+
  * Return: Always 0.
  */
 void print_prompt(int i)
 {
-	if (!isatty(STDIN_FILENO))
-		i = 1;
-	if (i == 0)
+	fflush(stdout);
+	if(!i)
 		_putstring("#:)$ ");
 }
-
 /**
  * process_line - Cut in pieces .
  *@line : input
@@ -45,15 +43,14 @@ char **process_line(char *line, char *del)
  *@line : input
  * Return: Always 0.
  */
-void fork_execve(char **line)
+void fork_execve(char **line, char **argv)
 {
-	pid_t pid = 0;
 	int status = 0;
+	int pid = fork();
 
-	pid = fork();
 	if (pid == -1)
 		perror("fork");
-	else if (pid == 1)
+	else if (pid > 0)
 	{
 		waitpid(pid, &status, 0);
 		kill(pid, SIGTERM);
@@ -62,7 +59,12 @@ void fork_execve(char **line)
 		if (pid == 0)
 	{
 		if (rec_env(line[0]) == NULL)
-			_putstring("command not found\n");
+		{
+			_putstring(argv[0]);
+			_putstring(" ");
+			_putstring(line[0]);
+			_putstring(" : command not found\n");
+		}
 		else
 			execve(rec_env(line[0]), line, environ);
 		exit(0);
@@ -74,12 +76,12 @@ void fork_execve(char **line)
  * Return: Always 0.
  */
 
-int main(void)
+int main(int argc __attribute__((unused)), char **argv)
 {
-	unsigned int is_pipe = 0;
 	char *line = NULL;
 	size_t bufsize = 64;
 	char **commande = NULL;
+	unsigned int i = 0;
 
 	line = (char *)malloc(bufsize * sizeof(char));
 	if (line == NULL)
@@ -89,10 +91,13 @@ int main(void)
 	}
 	while (1)
 	{
-		print_prompt(is_pipe);
+		print_prompt(i);
 		signal(SIGINT, sig_handler);
 		if (getline(&line, &bufsize, stdin) == EOF)
 		{
+			if (commande)
+				free_array(commande);
+			_putstring("\n");
 			break;
 		}
 		if (line == NULL)
@@ -104,8 +109,10 @@ int main(void)
 			exec_built(commande);
 		else
 		{
-			fork_execve(commande);
+			fork_execve(commande, argv);
 		}
-}
+	}
+	if (commande)
+	free_array(commande);
 	return (0);
 }
