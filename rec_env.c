@@ -1,41 +1,91 @@
-#include"shell.h"
-#include <string.h>
+#include "shell.h"
 /**
- * rec_env - recover Path
- * @line: line enter
- *Return: NULL
+ *_getenv - getenv recap the env path
+ *@path: path
+ *Return: 0
  */
-char *rec_env(char *line)
+char *_getenv(char *path)
+{
+	int i = 0;
+
+	for (i = 0; environ[i]; i++)
+	{
+		if (_strcmp(environ[i], path) == 0)
+			return (environ[i]);
+	}
+	return (NULL);
+}
+/**
+ * ver- verif
+ *@c : th input
+ * Return: 0
+ */
+int ver(char *c)
 {
 	struct stat buf;
-	char *str;
-	char *s;
-	char *token;
-	int i = 0;
-	char* args[100];
-	char* tab[100];
 
-	s = getenv("PATH");
-        token = strtok(s,":");
+	if (_getenv("PATH")[0] == ':')
+	{
+		if (stat(c, &buf) == 0)
+			return (1);
+
+	}
+	return (0);
+}
+/**
+ * result - concat a path
+ *@s1: first string
+ *@s2: second string
+ *@s3 : command
+ * Return: path
+ */
+char *result(char *s1, char *s2, char *s3)
+{
+	_strcpy(s1, s2);
+	_strcat(s1, "/");
+	_strcat(s1, s3);
+	_strcat(s1, "\0");
+	return (s1);
+}
+/**
+ * rec_env - recover the path for cod
+ *@cod: command input
+ * Return: path
+ */
+char *rec_env(char *cod)
+{
+	int i = 0;
+	char *path = _strdup(_getenv("PATH"));
+	char *token = strtok(path, ":");
+	char *tab_path[100];
+	char *stat_path = NULL;
+	struct stat buf;
+
+	stat_path = malloc(sizeof(char) * 100);
+	if (ver(cod) == 1)
+		return (_strdup(cod));
+
 	while (token != NULL)
 	{
-		args[i] = token;
-		i++;
-		token = strtok(NULL,":");
+		tab_path[i++] = token;
+		token = strtok(NULL, ":");
 	}
-        i = 0;
-	while (args[i])
+	tab_path[i] = NULL;
+	for (i = 0; tab_path[i] != '\0'; i++)
 	{
-		str = (char*)malloc(100);
-		_strcat(str, args[i]);
-		_strcat(str, "/");
-		_strcat(str,line);
-		tab[i] = str;
-		if (stat(tab[i], &buf) == 0)
+		result(stat_path, tab_path[i], cod);
+		if (stat(stat_path, &buf) == 0)
 		{
-			return (tab[i]);
+			free(path);
+			return (stat_path);
 		}
-		i++;
+		else
+			stat_path[0] = '\0';
 	}
+	free(path);
+	free(stat_path);
+
+	if (stat(cod, &buf) == 0)
+		return (_strdup(cod));
 	return (NULL);
 }

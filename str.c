@@ -1,7 +1,54 @@
 #include "shell.h"
+/**
+ * _strcpy - Returns the length of a string
+ * @dest: The string whose length will be returned
+ * @src: djjhfhd
+ * Return: the string
+ */
+
+char *_strcpy(char *dest, char *src)
+{
+	int i;
+
+	for (i = 0; src[i] != '\0'; i++)
+	{
+		dest[i] = src[i];
+	}
+	dest[i] = '\0';
+	return (dest);
+}
 
 /**
- * _strcmp - concatenates two strings.
+ * _strdup - copy strdup
+ * @ch: string to copie
+ * Return: 0
+ */
+char *_strdup(char *ch)
+{
+	char *ch_d;
+	unsigned int i = 0, s = 0;
+
+	if (ch == NULL)
+		return (NULL);
+
+	while (ch[s])
+		s++;
+
+	ch_d = malloc(s + 1);
+
+	if (ch_d == NULL)
+		return (NULL);
+
+	while (ch[i])
+	{
+		ch_d[i] = ch[i];
+		i++;
+	}
+	return (ch_d);
+}
+
+/**
+ * _strcmp - compare two strings.
  * @s1 : The pointer
  * @s2 : chaine
  * Return: Always 0.
@@ -34,20 +81,15 @@ int _strcmp(char *s1, char *s2)
 char *_strcat(char *dest, char *src)
 {
 	int j = 0;
-	int i = 0;
 
-	while (dest[i] != '\0')
+	int s = _strlen(dest);
+
+	while (src[j] != '\0')
 	{
-		i++;
-	}
-	j = i;
-	i = 0;
-	while (src[i] != '\0')
-	{
-		dest[j] = src[i];
-		i++;
+		dest[s] = src[j];
+		s++;
 		j++;
 	}
-	dest[j + 1] = '\0';
+	dest[s] = '\0';
 	return (dest);
 }
