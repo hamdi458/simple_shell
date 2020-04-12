@@ -27,11 +27,11 @@ char **process_line(char *line, char *del)
 	commande = NULL;
 	token = NULL;
 	commande = malloc(1048);
-	token = strtok(line, del);
+	token = _strtok(line, del);
 	while (token != NULL)
 	{
 		commande[i] = token;
-		token = strtok(NULL, del);
+		token = _strtok(NULL, del);
 		i++;
 	}
 
@@ -95,8 +95,6 @@ int main(int argc __attribute__((unused)), char **argv)
 		signal(SIGINT, sig_handler);
 		if (_getline(&line, &bufsize, stdin) == EOF)
 		{
-			if (commande)
-				free_array(commande);
 			_putstring("\n");
 			break;
 		}
@@ -112,7 +110,5 @@ int main(int argc __attribute__((unused)), char **argv)
 			fork_execve(commande, argv);
 		}
 	}
-	if (commande)
-	free_array(commande);
 	return (0);
 }

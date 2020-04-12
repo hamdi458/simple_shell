@@ -36,7 +36,7 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
  *@file : file
  *Return: 0
  */
-ssize_t _getline(char **buf, size_t *buf_size, FILE *file)
+int _getline(char **buf, size_t *buf_size, FILE *file)
 {
 	size_t length = 0;
 	int c;
@@ -46,7 +46,7 @@ ssize_t _getline(char **buf, size_t *buf_size, FILE *file)
 		return (-1);
 	if (!*buf)
 	{
-		*buf = malloc(16);
+		*buf = malloc(*buf_size);
 		if (!*buf)
 			return (-1);
 		*buf_size = 16;

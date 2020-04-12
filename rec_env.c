@@ -57,7 +57,7 @@ char *rec_env(char *cod)
 	int i = 0;
 	char *path = _strdup(_getenv("PATH"));
 	char *token = strtok(path, ":");
-	char *tab_path[100];
+	char *tab_path[10];
 	char *stat_path = NULL;
 	struct stat buf;
 
@@ -78,7 +78,6 @@ char *rec_env(char *cod)
 		if (stat(stat_path, &buf) == 0)
 		{
 			free(path);
-			free_array(tab_path);
 			return (stat_path);
 		}
 		i++;
