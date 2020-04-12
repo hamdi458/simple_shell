@@ -93,7 +93,7 @@ int main(int argc __attribute__((unused)), char **argv)
 	{
 		print_prompt(i);
 		signal(SIGINT, sig_handler);
-		if (getline(&line, &bufsize, stdin) == EOF)
+		if (_getline(&line, &bufsize, stdin) == EOF)
 		{
 			if (commande)
 				free_array(commande);

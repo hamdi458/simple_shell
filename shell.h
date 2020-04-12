@@ -11,6 +11,7 @@
 #include <sys/stat.h>
 #include <signal.h>
 extern char **environ;
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 int verif_built(char *cmd);
 void free_array(char **array);
 void exec_built(char **built_in);
@@ -24,4 +25,5 @@ char *rec_env(char *c);
 void sig_handler(int sig);
 int _strcmp(char *s1, char *s2);
 char *_strdup(char *ch);
+ssize_t _getline(char **pline_buf, size_t *pn, FILE *fin);
 #endif

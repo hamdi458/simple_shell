@@ -61,7 +61,7 @@ char *rec_env(char *cod)
 	char *stat_path = NULL;
 	struct stat buf;
 
-	stat_path = malloc(sizeof(char) * 100);
+	stat_path = malloc(100);
 	if (ver(cod) == 1)
 		return (_strdup(cod));
 
@@ -78,15 +78,13 @@ char *rec_env(char *cod)
 		if (stat(stat_path, &buf) == 0)
 		{
 			free(path);
+			free_array(tab_path);
 			return (stat_path);
 		}
-		else
-			stat_path[0] = '\0';
 		i++;
 	}
 	free(path);
 	free(stat_path);
-
 	if (stat(cod, &buf) == 0)
 		return (_strdup(cod));
 	return (NULL);
