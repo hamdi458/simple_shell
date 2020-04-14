@@ -7,7 +7,7 @@
 int verif_built(char *cod)
 {
 	int i;
-	char *built_in[] = {"exit","pwd", "cd", NULL};
+	char *built_in[] = {"exit", "pwd", "cd", NULL};
 
 	for (i = 0; built_in[i]; i++)
 	{
@@ -25,9 +25,9 @@ int verif_built(char *cod)
 void exec_built(char **built)
 {
 	char cwd[PATH_MAX];
-	if(_strcmp(built[0], "exit") == 0)
-	   exit(0);
-	else
+	int i;
+
+	i = _strcmp(built[0], "exit");
 	if (_strcmp(built[0], "pwd") == 0)
 	{
 		if (getcwd(cwd, sizeof(cwd)) != NULL)
@@ -37,8 +37,14 @@ void exec_built(char **built)
 	}
 	else
 		if (_strcmp(built[0], "cd") == 0)
-			if (chdir(built[1]) == -1)
-			{
-				perror("chdir()");
-			}
+		{
+			if (built[1] == NULL)
+				chdir(getenv("HOME"));
+			else
+				if(chdir(built[1]) == -1)
+				perror("chdir");
+		}
+		else
+			if (i == 0)
+				exit(127);
 }
