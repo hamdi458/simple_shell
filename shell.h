@@ -17,7 +17,7 @@ int verif_built(char *cmd);
 char *_getenv(char *path);
 void free_array(char **array);
 char *_strtok(char *str, char *del);
-void exec_built(char **built_in, char **argv);
+void exec_built(char **built_in);
 char *_strcpy(char *dest, char *src);
 char *_strcat(char *dest, char *src);
 int _putchar(char c);

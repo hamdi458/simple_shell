@@ -117,7 +117,7 @@ int main(int argc __attribute__((unused)), char **argv)
 		if (commande[0] == NULL)
 			continue;
 		if (verif_built(commande[0]) == 1)
-			exec_built(commande,commande);
+			exec_built(commande);
 		else
 		{
 			fork_execve(commande, argv, somme_cmd);

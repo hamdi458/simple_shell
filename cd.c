@@ -1,9 +1,7 @@
 #include "shell.h"
 /**
  *_help - help users.
- *@av: arguments.
- *
- *
+ *@av: built.
  */
 void _help(char **av)
 {
@@ -72,7 +70,7 @@ int verif_built(char *cod)
  *@built : built input
  * Return: void
  */
-void exec_built(char **built, char **argv)
+void exec_built(char **built)
 {
 	char cwd[PATH_MAX];
 	int i;
@@ -99,5 +97,5 @@ void exec_built(char **built, char **argv)
 				exit(127);
 			else
 				if (_strcmp(built[0], "help") == 0)
-					_help(argv);
+					_help(built);
 }
