@@ -12,10 +12,12 @@
 #include <signal.h>
 extern char **environ;
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+void print_number(int n);
 int verif_built(char *cmd);
+char *_getenv(char *path);
 void free_array(char **array);
 char *_strtok(char *str, char *del);
-void exec_built(char **built_in);
+void exec_built(char **built_in, char **argv);
 char *_strcpy(char *dest, char *src);
 char *_strcat(char *dest, char *src);
 int _putchar(char c);

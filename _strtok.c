@@ -35,7 +35,7 @@ char *_strtok(char *str, char *del)
 	if (*start_copy == '\0')
 	{
 		ch = NULL;
-		return NULL;
+		return (NULL);
 	}
 	while (*ch != '\0')
 	{
@@ -49,7 +49,7 @@ char *_strtok(char *str, char *del)
 			}
 			i++;
 		}
-		ch ++;
+		ch++;
 		if (i < len)
 			break;
 	}
