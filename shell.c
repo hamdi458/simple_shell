@@ -27,12 +27,12 @@ char **process_line(char *line, char *del)
 
 	commande = NULL;
 	token = NULL;
-	token = _strtok(line, del);
+	token = strtok(line, del);
 	commande = malloc(1024);
 	while (token != NULL)
 	{
 		commande[i] = token;
-		token = _strtok(NULL, del);
+		token = strtok(NULL, del);
 		i++;
 	}
 
