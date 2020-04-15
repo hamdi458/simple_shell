@@ -13,7 +13,6 @@ char *cmddir(char *dir, char *args)
 
 
 int i, j, len1, len2;
-
 char *buff;
 
 len1 = _strlen(dir);
