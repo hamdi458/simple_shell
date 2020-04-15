@@ -6,6 +6,7 @@
  * Description: prompt
  * Return: nothing
  */
+
 void prompt(void)
 {
 if (isatty(STDIN_FILENO))
