@@ -3,14 +3,13 @@
 /**
  *cmddir - Concatenate directory to command line
  *@dir: directory
- *@arg: argument
+ *@args: argument
  *Return:buff
  */
 
 
 char *cmddir(char *dir, char *args)
 {
-
 
 int i, j, len1, len2;
 char *buff;
