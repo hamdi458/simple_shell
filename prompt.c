@@ -1,10 +1,12 @@
 #include "shell.h"
+
 /**
- * prompt - print a prompt
+ *prompt - print a prompt
  *
- * Description: prompt
- * Return: nothing
+ *Description: prompt
+ *Return: nothing
  */
+
 void prompt(void)
 {
 if (isatty(STDIN_FILENO))

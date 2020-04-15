@@ -3,21 +3,19 @@
 /**
  *cmddir - Concatenate directory to command line
  *@dir: directory
- *@arg: argument
+ *@args: argument
  *Return:buff
  */
 
 
-char *cmddir(char *dir, char *arg)
+char *cmddir(char *dir, char *args)
 {
 
-
 int i, j, len1, len2;
-
 char *buff;
 
 len1 = _strlen(dir);
-len2 = _strlen(arg);
+len2 = _strlen(args);
 
 buff = malloc(sizeof(char) * len1 + len2 + 1);
 
@@ -28,7 +26,7 @@ buff[i] = dir[i];
 
 for (j = 0; i < len1 + len2; i++, j++)
 {
-buff[i] = arg[j];
+buff[i] = args[j];
 }
 buff[i] = '\0';
 return (buff);
