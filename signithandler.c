@@ -6,8 +6,8 @@
  */
 void sig_handler(int sig)
 {
-	if (sig == SIGINT)
-	{
-		_putstring("\n:)$ ");
-	}
+if (sig == SIGINT)
+{
+_putstring("\n:)$ ");
+}
 }
