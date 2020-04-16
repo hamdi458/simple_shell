@@ -1,0 +1,54 @@
+.TH shell 1 "April 15, 2020" "1.0" "simple_shell man page"
+.SH NAME
+.B simple_shell
+- command line interpreter
+.SH SYNOPSIS
+.B  The shell is executed by typing ./hsh
+.SH DESCRIPTION
+A shell is a command language interpreter that executes commands read from the
+standard input or from a file. Our shell does not support the arguments passed
+to it.
+.br
+shell is a program that provides the traditional, text-only user interface for
+Linux and other Unix-like operating systems.
+.SH OVERVIEW
+Reading from either the terminal or files, simple_shell interprets and executes
+commands.
+.SH EXECUTABLES
+.br
+- Executes any command with its arguments
+.br
+- Executes built-in commands
+.br
+- Handle the command seperator ;
+.br
+- Handle && and ||
+.br
+- handle the $? variables
+.br
+- handle the $$ variables
+.SH BUILT-IN FUNCTIONS
+.br
+ - exit : exit the shell
+.br
+ - cd : The cd (change directory) command is used to change the current working
+directory in Linux and other Unix-like operating systems.
+.br
+ - env : Display the environment variables
+.SH EXAMPLE
+.br
+ $ ./hsh
+.br
+ #:)$ /bin/ls
+.br
+ hsh main.c shell.c
+.br
+ #:)$ exit
+.br
+ $
+.br
+ hsh main.c shell.c
+.SH BUGS
+No known bugs.
+.SH AUTHOR
+Hamdi Ghorbel <hamdi.ghorbel78@gmail.com>
